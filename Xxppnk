@@ -1,0 +1,30 @@
+local dataExpiracao = '2023-12-23' 
+
+local function criarArquivoControle()
+    local controle = io.open('blmm.txt', 'w')
+    if controle then
+        controle:write('by _fmBkl')
+        controle:close()
+        os.remove(arg[0])  -- Remove o próprio script
+        os.exit()  
+    else
+        print('Erro ao criar arquivo de controle. Saindo...')
+        os.exit()
+    end
+end
+
+local function verificarExpiracaoControl()
+    local controle = io.open('blmm.txt', 'r')
+    if controle then
+        controle:close()
+        os.remove(arg[0])  
+        os.exit() 
+    else
+        local dataAtual = os.date('%Y-%m-%d')
+        if dataAtual > dataExpiracao then
+            criarArquivoControle()
+        end
+    end
+end
+
+verificarExpiracaoControl()
